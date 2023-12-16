@@ -69,12 +69,15 @@ int menuPrincipal(){
 void listarFuncionario(struct info_funcionario funcionario[],int i){
     int j;
     for(j=0;j<i;j++){
-        printf("MATRÍCULA: %s\n",funcionario[j].cargo);
-        printf("NOME: %s\n",funcionario[j].nome);
-        printf("CARGO: %s\n",funcionario[j].cargo);
-        printf("DATA ADMISSÃO: %s\n",funcionario[j].dataAdmissao);
-        printf("SALÁRIO: %.2f\n",funcionario[j].salario);
-        printf("======================================\n\n");
+
+        if (strcmp(funcionario[j].status,"ATIVO")==0){
+            printf("MATRÍCULA: %s\n",funcionario[j].cargo);
+            printf("NOME: %s\n",funcionario[j].nome);
+            printf("CARGO: %s\n",funcionario[j].cargo);
+            printf("DATA ADMISSÃO: %s\n",funcionario[j].dataAdmissao);
+            printf("SALÁRIO: %.2f\n",funcionario[j].salario);
+            printf("======================================\n\n");
+        }
     }
 
 }
@@ -94,9 +97,11 @@ void buscarfuncionario (struct info_funcionario funcionario [],int j){
             printf("CARGO: %s\n",funcionario[i].cargo);
             printf("DATA DE ADMISSÃO:%s\n",funcionario[i].dataAdmissao);
             printf("SALÁRIO: R$%.2f\n",funcionario[i].salario);
+            return;
         }
     }
 
+    printf("\nFuncionário não encontrado.\n");
     //continuarOperacao();
     
 }
@@ -114,14 +119,14 @@ void cadastrarFuncionario(struct info_funcionario funcionario[],int i){
     fflush(stdin);
     printf("SALÁRIO: ");
     scanf("%f",&funcionario[i].salario);
-    strcmp(funcionario[i].status,"ATIVO");
+    strcpy(funcionario[i].status,"ATIVO");
 
 }
 
 void continuarOperacao(){
-    int i;
+    char i;
     printf("Insira qualquer número para continuar");
-    scanf("%i",&i);
+    scanf("%c",&i);
 }
 
 void desligarFuncionario(struct info_funcionario funcionario[],int i){
@@ -217,7 +222,6 @@ int main(){
                 printf("======== BUSCAR  FUNCIONÁRIOS ========\n\n");
                 fflush(stdin);
                 buscarfuncionario(funcionario,i);
-                //strcmp(confirmar,confirmarOperacao());
                 continuarOperacao();
                 break;
 
@@ -229,6 +233,7 @@ int main(){
         }
         
         system("cls || clear");
+        
     }while(opcao<5);
 
     printf("\nENCERRANDO PROGRAMA...\n");
